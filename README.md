@@ -1,4 +1,4 @@
-# - 👋 Hi, I’m @miwkay!
+# - 👋 Hi, I’m Michael Khlevnoy!
 - 👀 I’m interested in Python software.
 <!---
 - 🌱 I’m currently learning Python.
