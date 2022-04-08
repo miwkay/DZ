@@ -3,7 +3,8 @@ from functools import wraps
 def decorator(func):
     @wraps(func)
     def inner(*args, **kwargs):
-        func(*args, **kwargs)
+        result = func(*args, **kwargs)
+        return result
     return inner
 
 @decorator
