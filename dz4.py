@@ -14,6 +14,7 @@ class StaticMethod:
 
 
 class Terra:
+
     @staticmethod
     def luna(price):
         if price > 0.01:
@@ -35,6 +36,7 @@ class ClassMethod:
         return MethodType(self.f, cls)
 
 class ScamYear:
+
     @classmethod
     def luna(cls, x):
         print(f"{x} is scam of the year!")
