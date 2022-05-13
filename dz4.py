@@ -1,34 +1,44 @@
-import datetime
+from types import MethodType
 
 
-class Person:
-    person_age = 18
+class StaticMethod:
 
-    def __init__(self, age):
-        self.person_age = age
+    def __init__(self, f):
+        self.f = f
 
-    def __str__(self):
-        return (f"Age: {self.valid_age(self.person_age)} "
-                f"Year of birh: {self.year_of_birth(self.person_age)}")
+    def __get__(self, obj, objtype=None):
+        return self.f
 
-    @classmethod
-    def valid_age(cls, age):
-        if cls.person_age <= age:
-            print('Adult')
-        else:
-            print('Too young')
+    def __call__(self, *args, **kwds):
+        return self.f(*args, **kwds)
 
+
+class Terra:
     @staticmethod
-    def year_of_birth(age):
-        date_now = datetime.datetime.now()
-        year_birth = date_now.year - age
-        print('Year of birh:', year_birth)
+    def luna(price):
+        if price > 0.01:
+            print("The 'Luna' will live..")
+        else:
+            print("..still belive!")
 
 
-person1 = Person(29)
-print(person1)  # Output: Adult Year of birth: 1993
-person2 = Person(17)
-print(person2)  # Output: Too young Year of birth: 2005
+class ClassMethod:
 
-print(Person.valid_age(29))  # Output: Adult
-print(Person.year_of_birth(17))  # Output: Year of birth: 2005
+    def __init__(self, f):
+        self.f = f
+
+    def __get__(self, obj, cls=None):
+        if cls is None:
+            cls = type(obj)
+        if hasattr(type(self.f), '__get__'):
+            return self.f.__get__(cls, cls)
+        return MethodType(self.f, cls)
+
+class ScamYear:
+    @classmethod
+    def luna(cls, x):
+        print(f"{x} is scam of the year!")
+
+
+Terra.luna(0.0001)
+ScamYear.luna("Luna")
